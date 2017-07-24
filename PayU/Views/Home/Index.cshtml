@@ -1,0 +1,157 @@
+﻿@model PayU.LibraryModel.SaleModel
+@{
+    ViewBag.Title = "Sale Model Deneme";
+}
+<form id="frmAddProduct" action="@Url.Action("AddProduct", "Home")" method="post">
+<b>Ürün Adı</b><input type="text" name="productName" /><br />
+<b>Ürün Barkod</b><input type="text" name="productBarcode" /><br />
+<b>Ürün Fiyat</b><input type="text" name="productPrice" /><br />
+<b>Ürün Adet</b><input type="text" name="productQuantity" /><br />
+<input type="submit" value="ürün ekle" />
+</form>
+@if (Model.RemainingPrice > 0)
+{
+    <br />
+    <form id="frmAddPayment" action="@Url.Action("AddPayment", "Home")" method="post">
+    <b>Ödeme Adı</b><input type="text" name="paymentName" /><br />
+    <b>Ödeme Tutarı</b><input type="text" name="paymentPrice" /><br />
+    <input type="submit" value="ödeme ekle" />
+    </form>
+    <br />
+    <form id="frmAddDiscount" action="@Url.Action("AddDiscount", "Home")" method="post">
+    <b>İndirim Adı</b><input type="text" name="discountName" /><br />
+    <b>İndirim Tutarı</b><input type="text" name="discountPrice" /><br />
+    <input type="submit" value="indirim ekle" />
+    </form>
+    <br />
+}
+@if (Model.Products.Any())
+{
+    <h2>
+        Ürünler</h2>
+    <table cellpadding="3" cellspacing="3">
+        <thead>
+            <tr>
+                <td>
+                    Ürün Adı
+                </td>
+                <td>
+                    Ürün Barkodu
+                </td>
+                <td>
+                    Ürün Fiyat
+                </td>
+                <td>
+                    Ürün Adet
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Name
+                    </td>
+                    <td>@item.Barcode
+                    </td>
+                    <td>@item.Price.ToString("c")
+                    </td>
+                    <td>@item.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+            if (Model.Payments.Any())
+            { 
+    <h2>
+        Ödemeler</h2>
+    <table cellpadding="2" cellspacing="2">
+        <thead>
+            <tr>
+                <td>
+                    Ödeme Adı
+                </td>
+                <td>
+                    Ödeme Tutarı
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Payments)
+            {
+                <tr>
+                    <td>@item.Name
+                    </td>
+                    <td>@item.Price.ToString("c")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+            }
+            if (Model.Discounts.Any())
+            { 
+    <h2>
+        İndirimler</h2>
+    <table cellpadding="2" cellspacing="2">
+        <thead>
+            <tr>
+                <td>
+                    İndirim Adı
+                </td>
+                <td>
+                    İndirim Tutarı
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Discounts)
+            {
+                <tr>
+                    <td>@item.Name
+                    </td>
+                    <td>@item.Price.ToString("c")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+            }
+    <hr />
+    <table cellpadding="3" cellspacing="3">
+        <thead>
+            <tr>
+                <td>
+                    Toplam Ürün Sayısı
+                </td>
+                <td>
+                    Toplam Tutar
+                </td>
+                <td>
+                    Toplam İndirim
+                </td>
+                <td>
+                    Toplam Ödeme
+                </td>
+                <td>
+                    Toplam Kalan Tutar
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.TotalQuantity
+                </td>
+                <td>@Model.GrandTotal.ToString("c")
+                </td>
+                <td>@Model.TotalDiscount.ToString("c")
+                </td>
+                <td>@Model.TotalPayment.ToString("c")
+                </td>
+                <td>@Model.RemainingPrice.ToString("c")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

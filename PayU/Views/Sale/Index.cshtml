@@ -1,0 +1,91 @@
+﻿@model PayU.LibraryModel.SaleModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Ürün Ekleme / Çıkarma</h2>
+<form id="frmAddProduct" action="@Url.Action("AddProduct", "Sale")" method="post">
+<table cellpadding="3" border="solid" cellspacing="3">
+    <thead>
+        <tr>
+            <td>
+                Ürün Adı
+            </td>
+            <td>
+                Ürün Barkod
+            </td>
+            <td>
+                Ürün Fiyat
+            </td>
+            <td>
+                Ürün Adet
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input type="text" name="productName" />
+            </td>
+            <td>
+                <input type="text" name="productBarcode" />
+            </td>
+            <td>
+                <input type="text" name="productPrice" />
+            </td>
+            <td>
+                <input type="text" name="productQuantity" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<input type="submit" value="ürün ekle" />
+</form>
+@if (Model.Products.Any())
+{
+   
+
+    <table cellpadding="3" border="solid" cellspacing="3">
+        <thead>
+            <tr>
+                <td>
+                    Ürün Adı
+                </td>
+                <td>
+                    Ürün Barkodu
+                </td>
+                <td>
+                    Ürün Fiyat
+                </td>
+                <td>
+                    Ürün Adet
+                </td>
+                <td>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Name
+                    </td>
+                    <td>@item.Barcode
+                    </td>
+                    <td>@item.Price.ToString("c")
+                    </td>
+                    <td>@item.Quantity
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteProduct", "Sale", new { uniqId = item.UniqId })">Kaldir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr />
+    @Html.Partial("PSaleSummery", Model)
+    <br />
+    <a href="@Url.Action("Basket", "Sale")">DEVAM</a>
+}

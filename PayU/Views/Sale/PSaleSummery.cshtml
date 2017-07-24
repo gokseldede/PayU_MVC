@@ -1,0 +1,83 @@
+﻿@model PayU.LibraryModel.SaleModel
+<table cellpadding="3" border="solid" cellspacing="3">
+    <thead>
+        <tr>
+            <td>
+                Toplam Ürün Sayısı
+            </td>
+            <td>
+                Toplam Tutar
+            </td>
+            <td>
+                Toplam İndirim
+            </td>
+            <td>
+                Toplam Ödeme
+            </td>
+            <td>
+                Toplam Kalan Tutar
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.TotalQuantity
+            </td>
+            <td>@Model.GrandTotal.ToString("c")
+            </td>
+            <td>@Model.TotalDiscount.ToString("c")
+            </td>
+            <td>@Model.TotalPayment.ToString("c")
+            </td>
+            <td>@Model.RemainingPrice.ToString("c")
+            </td>
+        </tr>
+    </tbody>
+</table>
+@if (Model.Address.Any())
+{
+    foreach (var item in Model.Address)
+    {
+    <table cellpadding="3" border="solid" cellspacing="3">
+        <thead>
+            <tr>
+                <td>
+                    Tipi
+                </td>
+                <td>
+                    Adres Adı / Kişi Adı
+                </td>
+                <td>
+                    Ülke / Şehir / İlçe
+                </td>
+                <td>
+                    Telefon
+                </td>
+                <td>
+                    Adres
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @if (item.Type == PayU.Enum.AddressType.Delivery)
+                    {<span>Teslimat</span>}
+                    else
+                    {<span>Fatura</span>}
+                </td>
+                <td>@item.Name
+                </td>
+                <td>@item.Country / @item.City / @item.Town
+                </td>
+                <td>@item.Phone
+                </td>
+                <td>@item.Address
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    }
+
+
+}

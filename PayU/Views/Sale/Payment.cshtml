@@ -1,0 +1,11 @@
+﻿@model PayU.LibraryModel.SaleModel
+@{
+    ViewBag.Title = "payment";
+}
+<h2>
+    Ödeme Ekle</h2>
+<form id="frmPayment"  action="@Url.Action("PaymentOk", "Sale")" method="post">
+<input type="text" disabled="disabled" value="@Model.RemainingPrice" />
+<input type="submit" value="ödeme ekle" />
+</form>
+@Html.Partial("PSaleSummery", Model)

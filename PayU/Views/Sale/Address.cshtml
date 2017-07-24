@@ -1,0 +1,46 @@
+﻿@model PayU.Models.AddressPageModel
+<h2>
+    Adres Seçimi</h2>
+<br />
+<h2>
+    Teslimat Adresi</h2>
+<form id="formAddress" method="post" action="@Url.Action("address", "Sale")">
+<b>Adres Adı</b>@Html.TextBoxFor(s => s.Delivery.Name)<br />
+<b>Teslim Alıcak Kişinin Adı</b>@Html.TextBoxFor(s => s.Delivery.ContactName)<br />
+<b>Telefon</b>@Html.TextBoxFor(s => s.Delivery.Phone)<br />
+<b>Posta Kodu</b>@Html.TextBoxFor(s => s.Delivery.PostCode)<br />
+<b>Ülke</b>@Html.TextBoxFor(s => s.Delivery.Country)<br />
+<b>Şehir</b>@Html.TextBoxFor(s => s.Delivery.City)<br />
+<b>İlçe</b>@Html.TextBoxFor(s => s.Delivery.Town)<br />
+<b>Adres</b>@Html.TextAreaFor(s => s.Delivery.Address)<br />
+@Html.CheckBoxFor(s => s.IsDelivery) <span>Teslimat Adresim ile Fatura Adresim aynı
+    olsun</span>
+<div id="invoiceAddress">
+    <h2>
+        Fatura Adresi</h2>
+    <b>Adres Adı</b>@Html.TextBoxFor(s => s.Invoice.Name)<br />
+    <b>Faturada Yazıcak Ad</b>@Html.TextBoxFor(s => s.Invoice.ContactName)<br />
+    <b>Telefon</b>@Html.TextBoxFor(s => s.Invoice.Phone)<br />
+    <b>Posta Kodu</b>@Html.TextBoxFor(s => s.Invoice.PostCode)<br />
+    <b>Ülke</b>@Html.TextBoxFor(s => s.Invoice.Country)<br />
+    <b>Şehir</b>@Html.TextBoxFor(s => s.Invoice.City)<br />
+    <b>İlçe</b>@Html.TextBoxFor(s => s.Invoice.Town)<br />
+    <b>Adres</b>@Html.TextAreaFor(s => s.Invoice.Address)<br />
+</div>
+<input type="submit" value="Devam Et" />
+</form>
+@Html.Partial("PSaleSummery", Model.Sale)
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#invoiceAddress').hide();
+        $("#IsDelivery").change(function () {
+            if (this.checked) {
+                $('#invoiceAddress').hide();
+            }
+            else {
+                $('#invoiceAddress').show();
+            }
+        });
+    });
+
+</script>

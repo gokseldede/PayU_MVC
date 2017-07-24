@@ -1,0 +1,22 @@
+﻿@model PayU.LibraryModel.SaleModel
+@if (Model.Discounts.Any())
+{
+    var coupon = Model.Discounts.FirstOrDefault();
+    <b>Kullanılan Kopon : </b> @coupon.Name  @coupon.CouponCode @coupon.Price
+    <a href="@Url.Action("DeleteDiscount", "Sale", new { uniqId = coupon.UniqId })">Vazgeç</a>
+  
+}
+else
+{
+    <h2>
+        Promosyon Kodu Kullan</h2>
+    <form id="frmDiscountCoupon" action="@Url.Action("AddDiscount", "Sale")">
+    <input type="hidden" name="discountName" value="Promosyon Kodu" />
+    Kupon Kodu :<input type="text" name="discountCouponCode" />
+    Kupon Tutarı :<input type="text" name="discountPrice" />
+    <input type="submit" value="kullan" />
+    </form>
+    <br />
+}
+@Html.Partial("PSaleSummery", Model)
+<a href="@Url.Action("address", "Sale")">DEVAM</a>

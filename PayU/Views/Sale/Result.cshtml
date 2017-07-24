@@ -1,0 +1,42 @@
+﻿@model PayU.LibraryModel.SaleModel
+@{
+    ViewBag.Title = "result";
+}
+<h2>
+    Sipariş Tamamlandı</h2>
+<table cellpadding="3" border="solid" cellspacing="3">
+    <thead>
+        <tr>
+            <td>
+                Ürün Adı
+            </td>
+            <td>
+                Ürün Barkodu
+            </td>
+            <td>
+                Ürün Fiyat
+            </td>
+            <td>
+                Ürün Adet
+            </td>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.Name
+                </td>
+                <td>@item.Barcode
+                </td>
+                <td>@item.Price.ToString("c")
+                </td>
+                <td>@item.Quantity
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Partial("PSaleSummery", Model)
